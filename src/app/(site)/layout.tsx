@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from "@/components/landing-page/header";
 
 interface HomePageLayoutProps {
     children: React.ReactNode;
@@ -7,6 +8,7 @@ interface HomePageLayoutProps {
 const HomePageLayout = ({children}: HomePageLayoutProps) => {
     return (
         <main>
+            <Header />
             {children}
         </main>
     );

@@ -20,8 +20,9 @@ const Page = () => {
                 />
                 <div
                     className={'bg-white p-[2px] mt-6 rounded-xl bg-gradient-to-r from-primary to-brand-primaryBlue sm:w-[300px]'}>
+                    {/*TODO: link button to login/signup page*/}
                     <Button
-                        variant={'secondary'}
+                        variant={'btn-primary'}
                         className={'w-full rounded-[10px] p-6 text-2xl bg-background'}
                     >
                         Get Cypress Free
