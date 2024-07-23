@@ -5,19 +5,16 @@ import {createRouteHandlerClient} from '@supabase/auth-helpers-nextjs';
 import {FormSchema} from '../types';
 import {cookies} from 'next/headers';
 
-const signupFormSchema = FormSchema('sign-up')
-const loginFormSchema = FormSchema('login')
-
-export async function actionLoginUser({email, password,}: z.infer<typeof signupFormSchema>) {
+export async function actionLoginUser({email, password,}: z.infer<typeof FormSchema>) {
     const supabase = createRouteHandlerClient({cookies});
     const response = await supabase.auth.signInWithPassword({
         email,
         password,
     });
-    return response;
+    return JSON.stringify(response);
 }
 
-export async function actionSignUpUser({email, password,}: z.infer<typeof loginFormSchema>) {
+export async function actionSignUpUser({email, password,}: z.infer<typeof FormSchema>) {
     const supabase = createRouteHandlerClient({cookies});
     const {data} = await supabase
         .from('profiles')

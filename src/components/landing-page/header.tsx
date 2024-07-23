@@ -21,7 +21,6 @@ import {Button} from "@/components/ui/button";
 const Header = () => {
     const [path, setPath] = useState<string>('#products');
     return (
-        /*TODO: Change to map functiton*/
         <header className={'p-4 flex justify-center items-center'}>
             <Link
                 href="/"

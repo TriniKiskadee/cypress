@@ -224,5 +224,3 @@ const Page = () => {
 };
 
 export default Page;
-
-/*TODO: 1:13:00*/
