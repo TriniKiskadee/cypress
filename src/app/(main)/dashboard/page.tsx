@@ -16,8 +16,8 @@ const DashboardPage = async () => {
         where: (workspace, {eq}) => eq(workspace.workspaceOwner, user.id),
     })
 
-    const {data: subscription, error:subscriptionError} = await getUserSubscriptionStatus(user.id)
-    if(subscriptionError) return
+    const {data: subscription, error: subscriptionError} = await getUserSubscriptionStatus(user.id)
+    if (subscriptionError) return
 
     if (!workspace) return (
         <div className={'bg-background h-screen w-screen flex justify-center items-center'}>

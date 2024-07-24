@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/navigation";
 import dynamic from "next/dynamic";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
@@ -18,6 +18,13 @@ const EmojiPicker = ({children, getValue}: EmojiPickerProps) => {
     const onClick = (selectedEmoji: any) => {
         if (getValue) getValue(selectedEmoji.emoji);
     }
+
+    const [isMounted, setIsMounted] = useState(false)
+    useEffect(() => {
+        setIsMounted(true)
+    })
+    if (!isMounted) return null
+
     return (
         <div className={'flex items-center'}>
             <Popover>

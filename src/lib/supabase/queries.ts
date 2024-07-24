@@ -37,10 +37,11 @@ export const getUserSubscriptionStatus = async (userId: string) => {
 
 export const getFolders = async (workspaceId: string) => {
     const isValid = validate(workspaceId);
-    if (!isValid) return {
+    if (!isValid)
+        return {
             data: null,
             error: 'Error',
-    };
+        };
 
     try {
         const results: Folder[] | [] = await db
