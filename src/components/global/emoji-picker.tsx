@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import dynamic from "next/dynamic";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {useTheme} from "next-themes";
+import Loader from "@/components/global/loader";
 
 interface EmojiPickerProps {
     children: React.ReactNode;
@@ -14,7 +15,9 @@ interface EmojiPickerProps {
 const EmojiPicker = ({children, getValue}: EmojiPickerProps) => {
     const {theme, themes} = useTheme();
     const route = useRouter();
-    const Picker = dynamic(() => import('emoji-picker-react'))
+    const Picker = dynamic(() => import('emoji-picker-react'), {
+        loading: () => <Loader />
+    })
     const onClick = (selectedEmoji: any) => {
         if (getValue) getValue(selectedEmoji.emoji);
     }

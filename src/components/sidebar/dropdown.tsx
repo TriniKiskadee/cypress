@@ -18,7 +18,6 @@ import {PlusIcon, Trash} from 'lucide-react';
 import {File} from '@/lib/supabase/supabase.types';
 import {v4} from 'uuid';
 import {useSupabaseUser} from '@/lib/providers/supabase-user-provider';
-import SidebarFile from "@/components/sidebar/sidebar-file";
 
 interface DropdownProps {
     title: string;
@@ -29,15 +28,7 @@ interface DropdownProps {
     disabled?: boolean;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({
-                                               title,
-                                               id,
-                                               listType,
-                                               iconId,
-                                               children,
-                                               disabled,
-                                               ...props
-                                           }) => {
+const Dropdown: React.FC<DropdownProps> = ({title, id, listType, iconId, children, disabled, ...props}) => {
     const supabase = createClientComponentClient();
     const {toast} = useToast();
     const {user} = useSupabaseUser();
@@ -85,8 +76,8 @@ const Dropdown: React.FC<DropdownProps> = ({
     const handleDoubleClick = () => {
         setIsEditing(true);
     };
-    //blur
 
+    //blur
     const handleBlur = async () => {
         if (!isEditing) return;
         setIsEditing(false);
@@ -158,6 +149,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             });
         }
     };
+
     const fileTitleChange = (e: any) => {
         if (!workspaceId || !folderId) return;
         const fid = id.split('folder');
@@ -239,6 +231,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const isFolder = listType === 'folder';
+
     const groupIdentifies = clsx(
         'dark:text-white whitespace-nowrap flex justify-between items-center w-full relative',
         {
@@ -309,10 +302,12 @@ const Dropdown: React.FC<DropdownProps> = ({
                 navigatePage(id, listType);
             }}
         >
+            {/*TODO:disabled prop prevents selecting and edition of files,
+                   but accordion opens and closes when trying to change the icon from sidebar*/}
             <AccordionTrigger
                 id={listType}
                 className={'hover:no-underline p-2 dark:text-muted-foreground text-sm'}
-                disabled={listType === 'file'}
+                //disabled={listType === 'file'}
             >
                 <div className={groupIdentifies}>
                     <div className={'flex gap-4 items-center justify-center overflow-hidden'}>
@@ -359,7 +354,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                     </div>
                 </div>
             </AccordionTrigger>
-            <AccordionContent >
+            <AccordionContent>
                 {state.workspaces
                     .find((workspace) => workspace.id === workspaceId)
                     ?.folders.find((folder) => folder.id === id)
@@ -367,9 +362,12 @@ const Dropdown: React.FC<DropdownProps> = ({
                     .map((file) => {
                         const customFileId = `${id}folder${file.id}`;
                         return (
-                            <SidebarFile
-                                file={file}
-                                customFileId={customFileId}
+                            <Dropdown
+                                key={file.id}
+                                title={file.title}
+                                listType={'file'}
+                                id={customFileId}
+                                iconId={file.iconId}
                             />
                         );
                     })}
@@ -379,5 +377,3 @@ const Dropdown: React.FC<DropdownProps> = ({
 };
 
 export default Dropdown;
-
-/*TODO: 6:38:54*/

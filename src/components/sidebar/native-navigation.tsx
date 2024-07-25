@@ -4,6 +4,7 @@ import {twMerge} from 'tailwind-merge';
 import CypressHomeIcon from '../icons/cypressHomeIcon';
 import CypressSettingsIcon from '../icons/cypressSettingsIcon';
 import CypressTrashIcon from '../icons/cypressTrashIcon';
+import Settings from "@/components/settings/settings";
 
 /*import Settings from '@/components/settings/settings';
 import Trash from '@/components/trash/trash';*/
@@ -32,14 +33,14 @@ const NativeNavigation: React.FC<NativeNavigationProps> = ({
                     </Link>
                 </li>
 
-                {/*<Settings>*/}
-                    <li className="group/native flex text-Neutrals/neutrals-7 transition-all gap-2 cursor-pointer">
+                <Settings>
+                    <li className={'group/native flex text-Neutrals/neutrals-7 transition-all gap-2 cursor-pointer'}>
                         <CypressSettingsIcon/>
                         <span>Settings</span>
                     </li>
-                {/*</Settings>*/}
+                </Settings>
 
-                <li className="group/native flex text-Neutrals/neutrals-7 transition-all gap-2" >
+                <li className={'group/native flex text-Neutrals/neutrals-7 transition-all gap-2 cursor-pointer'} >
                     <CypressTrashIcon/>
                     <span>Trash</span>
                 </li>

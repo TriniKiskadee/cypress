@@ -32,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = async ({params, className}) => {
 
     if (!user) return;
 
-    //subscr
+    //subscribe
     const {data: subscriptionData, error: subscriptionError} =
         await getUserSubscriptionStatus(user.id);
 
@@ -40,6 +40,7 @@ const Sidebar: React.FC<SidebarProps> = async ({params, className}) => {
     const {data: workspaceFolderData, error: foldersError} = await getFolders(
         params.workspaceId
     );
+
     //error
     if (subscriptionError || foldersError) redirect('/dashboard');
 
@@ -74,9 +75,10 @@ const Sidebar: React.FC<SidebarProps> = async ({params, className}) => {
                     subscription={subscriptionData}
                 />
                 <NativeNavigation myWorkspaceId={params.workspaceId}/>
-                <ScrollArea className={'overflow-scroll relative h-[450px]'}>
+                <ScrollArea className={'overflow-scroll relative h-[450px] no-scrollbar'}>
                     <div
-                        className={'pointer-events-none w-full absolute bottom-0 h-20 bg-gradient-to-t from-background to-transparent z-40'}/>
+                        className={'pointer-events-none w-full absolute bottom-0 h-20 bg-gradient-to-t from-background to-transparent z-40'}
+                    />
                     <FoldersDropdownList
                         workspaceFolders={workspaceFolderData || []}
                         workspaceId={params.workspaceId}

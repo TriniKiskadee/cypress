@@ -95,7 +95,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({ workspaceFold
                 <span className={'text-Neutrals-8 font-bold  text-xs'}>
                     FOLDERS
                 </span>
-                <TooltipComponent message="Create Folder">
+                <TooltipComponent message={'Create Folder'}>
                     <PlusIcon
                         onClick={addFolderHandler}
                         size={16}
@@ -104,9 +104,9 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({ workspaceFold
                 </TooltipComponent>
             </div>
             <Accordion
-                type="multiple"
+                type={'multiple'}
                 defaultValue={[folderId || '']}
-                className="pb-20"
+                className={'pb-20'}
             >
                 {folders
                     .filter((folder) => !folder.inTrash)
@@ -114,7 +114,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({ workspaceFold
                         <Dropdown
                             key={folder.id}
                             title={folder.title}
-                            listType="folder"
+                            listType={'folder'}
                             id={folder.id}
                             iconId={folder.iconId}
                         />
