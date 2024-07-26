@@ -6,6 +6,7 @@ import {twMerge} from "tailwind-merge";
 import {Toaster} from "@/components/ui/toaster";
 import AppStateProvider from "@/lib/providers/state-provider";
 import {SupabaseUserProvider} from "@/lib/providers/supabase-user-provider";
+import {SocketProvider} from "@/lib/providers/socket-provider";
 
 const inter = DM_Sans({subsets: ["latin"]});
 
@@ -21,13 +22,15 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
             <body className={twMerge('bg-background', inter.className)}>
                 <ThemeProvider
                     attribute={'class'}
-                    defaultTheme={'dark'}
+                    defaultTheme={'system'}
                     enableSystem
                 >
                     <AppStateProvider>
                         <SupabaseUserProvider>
-                            {children}
-                            <Toaster />
+                            <SocketProvider>
+                                {children}
+                                <Toaster/>
+                            </SocketProvider>
                         </SupabaseUserProvider>
                     </AppStateProvider>
                 </ThemeProvider>

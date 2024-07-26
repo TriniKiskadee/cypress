@@ -1,24 +1,22 @@
 import React from 'react';
-import {appFoldersType, appWorkspacesType, useAppState} from "@/lib/providers/state-provider";
-import {Folder, workspace} from "@/lib/supabase/supabase.types";
+import {useAppState} from "@/lib/providers/state-provider";
+import {workspace} from "@/lib/supabase/supabase.types";
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {CreateWorkspaceFormSchema, UploadBannerFormSchema} from "@/lib/types";
+import {UploadBannerFormSchema} from "@/lib/types";
 import {z} from "zod";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import Loader from "@/components/global/loader";
-import {useToast} from "@/components/ui/use-toast";
 import {updateFile, updateFolder, updateWorkspace} from "@/lib/supabase/queries";
 
 interface BannerUploadFormProps {
     dirType: 'workspace' | 'folder' | 'file'
-    details: appWorkspacesType | appFoldersType | File | workspace | Folder
     id: string
 }
 
-const BannerUploadForm = ({dirType, details, id}: BannerUploadFormProps) => {
+const BannerUploadForm = ({dirType, id}: BannerUploadFormProps) => {
     const supabase = createClientComponentClient()
     const  {state, workspaceId, folderId, dispatch} = useAppState()
 

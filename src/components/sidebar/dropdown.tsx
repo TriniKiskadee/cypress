@@ -354,6 +354,7 @@ const Dropdown: React.FC<DropdownProps> = ({title, id, listType, iconId, childre
                     </div>
                 </div>
             </AccordionTrigger>
+            {/*TODO: extract input from above to replace dropdown below so it wont be an accordion*/}
             <AccordionContent>
                 {state.workspaces
                     .find((workspace) => workspace.id === workspaceId)

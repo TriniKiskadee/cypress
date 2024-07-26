@@ -11,7 +11,13 @@ import {Briefcase, Lock, Plus, Share} from "lucide-react";
 import {Separator} from "@/components/ui/separator";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
-import {addCollaborators, deleteWorkspace, removeCollaborators, updateWorkspace} from "@/lib/supabase/queries";
+import {
+    addCollaborators,
+    deleteWorkspace,
+    getCollaborators,
+    removeCollaborators,
+    updateWorkspace
+} from "@/lib/supabase/queries";
 import {v4} from "uuid";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import CollaboratorSearch from "@/components/global/collaborator-search";
@@ -19,6 +25,13 @@ import {Button} from "@/components/ui/button";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Alert, AlertDescription} from "@/components/ui/alert";
+import {
+    AlertDialog, AlertDialogAction, AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription, AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle
+} from "@/components/ui/alert-dialog";
 
 const SettingsForm = () => {
     const {toast} = useToast();
@@ -111,6 +124,17 @@ const SettingsForm = () => {
     // get workspace details
 
     // get all the collaborators
+    useEffect(() => {
+        if (!workspaceId) return
+        const fetchCollaborators = async () => {
+            const response = await getCollaborators(workspaceId)
+            if (response.length) {
+                setPermissions('shared')
+                setCollaborators(response)
+            }
+        }
+        fetchCollaborators()
+    }, [workspaceId]);
 
     // TODO: Payment portal redirect
 
@@ -120,6 +144,23 @@ const SettingsForm = () => {
         )
         if (showingWorkspace) setWorkspaceDetails(showingWorkspace)
     }, [workspaceId, state]);
+
+
+    /*TODO: permission change needs work*/
+    const onPermissionsChange = async (val: string) => {
+        if (val === 'private') {
+            setOpenAlertMessage(true)
+        } else setOpenAlertMessage(val)
+    }
+
+    const onClickAlertConfirm = async () => {
+        if(!workspaceId) return
+        if (collaborators.length > 0) {
+            await removeCollaborators(collaborators, workspaceId)
+        }
+        setPermissions('private')
+        setOpenAlertMessage(false)
+    }
 
     return (
         <div className={'flex gap-4 flex-col'}>
@@ -166,8 +207,8 @@ const SettingsForm = () => {
                     Permissions
                 </Label>
                 <Select
-                    onValueChange={(val) => setPermissions(val)}
-                    defaultValue={'permissions'}
+                    onValueChange={onPermissionsChange}
+                    value={permissions}
                 >
                     <SelectTrigger className={'w-full h-26 -mt-3'}>
                         <SelectValue/>
@@ -281,8 +322,32 @@ const SettingsForm = () => {
                     </Button>
                 </Alert>
             </>
+            <AlertDialog open={openAlertMessage}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            Are you sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Changing a Shared workspace to a Private workspace will remove all collaborators permanently.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel
+                            onClick={() => setOpenAlertMessage(false)}
+                        >
+                            Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction onClick={onClickAlertConfirm}>
+                            Change
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 };
 
 export default SettingsForm;
+
+/*TODO: 9:20:32*/
