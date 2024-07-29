@@ -335,7 +335,7 @@ const Dropdown: React.FC<DropdownProps> = ({title, id, listType, iconId, childre
                         />
                     </div>
                     <div className={hoverStyles}>
-                        <TooltipComponent message="Delete Folder">
+                        <TooltipComponent message={listType === 'folder' ? 'Delete Folder' : 'Delete File'}>
                             <Trash
                                 onClick={moveToTrash}
                                 size={15}

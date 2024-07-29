@@ -65,10 +65,10 @@ var TOOLBAR_OPTIONS = [
 ];
 
 const QuillEditor: React.FC<QuillEditorProps> = ({
-    dirDetails,
-    dirType,
-    fileId,
-}) => {
+                                                     dirDetails,
+                                                     dirType,
+                                                     fileId,
+                                                 }) => {
     const supabase = createClientComponentClient();
     const {state, workspaceId, folderId, dispatch} = useAppState();
     const saveTimerRef = useRef<ReturnType<typeof setTimeout>>();
@@ -156,7 +156,6 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     }, [state, pathname, workspaceId]);
 
     //
-
     const wrapperRef = useCallback(async (wrapper: any) => {
         if (typeof window !== 'undefined') {
             if (wrapper === null) return;
@@ -164,8 +163,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             const editor = document.createElement('div');
             wrapper.append(editor);
             const Quill = (await import('quill')).default;
-            /*const QuillCursors = (await import('quill-cursors')).default;*/
-            /*Quill.register('modules/cursors', QuillCursors);*/
+            const QuillCursors = (await import('quill-cursors')).default;
+            Quill.register('modules/cursors', QuillCursors);
             const q = new Quill(editor, {
                 theme: 'snow',
                 modules: {
@@ -178,7 +177,6 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             setQuill(q);
         }
     }, []);
-
 
     const restoreFileHandler = async () => {
         if (dirType === 'file') {
@@ -207,7 +205,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                 payload: {fileId, folderId, workspaceId},
             });
             await deleteFile(fileId);
-            router.replace(`/dashboard/${workspaceId}`);
+            router.replace(`/dashboard/${workspaceId}/${folderId}`);
         }
         if (dirType === 'folder') {
             if (!workspaceId) return;
@@ -509,24 +507,22 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 
     return (
         <>
-            {isConnected ? 'Connected' : 'Not Connected'}
-            <div className={'relative'}>
+            <div className="relative">
                 {details.inTrash && (
                     <article
                         className={'py-2 z-40 bg-[#EB5757] flex md:flex-row flex-col justify-center items-center gap-4 flex-wrap'}>
                         <div className={'flex flex-col md:flex-row gap-2 justify-center items-center'}>
-                            <span className='text-white'>
+                            <span className={'text-white'}>
                                 This {dirType} is in the trash.
                             </span>
                             <Button
-                                size='sm'
-                                variant='outline'
+                                size={'sm'}
+                                variant={'outline'}
                                 className={'bg-transparent border-white text-white hover:bg-white hover:text-[#EB5757]'}
                                 onClick={restoreFileHandler}
                             >
                                 Restore
                             </Button>
-
                             <Button
                                 size={'sm'}
                                 variant={'outline'}
@@ -536,25 +532,26 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                                 Delete
                             </Button>
                         </div>
-                        <span className='text-sm text-white'>
+                        <span className="text-sm text-white">
                             {details.inTrash}
                         </span>
                     </article>
                 )}
                 <div className={'flex flex-col-reverse sm:flex-row sm:justify-between justify-center sm:items-center sm:p-2 p-8'}>
                     <div>{breadCrumbs}</div>
-                    <div className='flex items-center gap-4'>
-                        <div className='flex items-center justify-center h-10'>
+                    <div className={'flex items-center gap-4'}>
+                        <div className={'flex items-center justify-center h-10'}>
                             {collaborators?.map((collaborator) => (
                                 <TooltipProvider key={collaborator.id}>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
                                             <Avatar
-                                                className={'-ml-3 bg-background border-2 flex items-center justify-center border-white h-8 w-8 rounded-full'}
-                                            >
+                                                className={'-ml-3 bg-background border-2 flex items-center justify-center border-white h-8 w-8 rounded-full'}>
                                                 <AvatarImage
-                                                    src={ collaborator.avatarUrl ? collaborator.avatarUrl : ''}
-                                                    className='rounded-full'
+                                                    src={
+                                                        collaborator.avatarUrl ? collaborator.avatarUrl : ''
+                                                    }
+                                                    className={'rounded-full'}
                                                 />
                                                 <AvatarFallback>
                                                     {collaborator.email.substring(0, 2).toUpperCase()}
@@ -569,7 +566,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                         {saving ? (
                             <Badge
                                 variant={'secondary'}
-                                className={'bg-orange-600 top-4 text-white right-4 z-50 '}
+                                className={'bg-orange-600 top-4 text-white right-4 z-50'}
                             >
                                 Saving...
                             </Badge>
@@ -599,14 +596,16 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                 </div>
             )}
             <div
-                className='flex justify-center items-center flex-col mt-2 relative '
+                className={'flex justify-center items-center flex-col mt-2 relative'}
             >
                 <div
                     className={'w-full self-center max-w-[800px] flex flex-col px-7 lg:my-8'}
                 >
                     <div className={'text-[80px]'}>
                         <EmojiPicker getValue={iconOnChange}>
-                            <div className={'w-[100px] cursor-pointer transition-colors h-[100px] flex items-center justify-center hover:bg-muted rounded-xl'}>
+                            <div
+                                className={'w-[100px] cursor-pointer transition-colors h-[100px] flex items-center justify-center hover:bg-muted rounded-xl'}
+                            >
                                 {details.iconId}
                             </div>
                         </EmojiPicker>
@@ -641,8 +640,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                     </span>
                 </div>
                 <div
-                    id={'container'}
-                    className={'max-w-[800px]'}
+                    id="container"
+                    className="max-w-[800px]"
                     // @ts-ignore
                     ref={wrapperRef}
                 ></div>

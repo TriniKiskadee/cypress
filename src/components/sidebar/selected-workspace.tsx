@@ -4,6 +4,7 @@ import {createClientComponentClient} from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
+import {User} from "lucide-react";
 
 interface SelectedWorkspaceProps {
     workspace: workspace;
@@ -31,11 +32,11 @@ const SelectedWorkspace: React.FC<SelectedWorkspaceProps> = ({workspace, onClick
             className={'flex rounded-md hover:bg-muted transition-all flex-row p-2 gap-4 justify-center cursor-pointer items-center my-2'}
         >
             <Image
-                src={workspaceLogo}
-                alt="workspace logo"
+                src={workspaceLogo ? workspaceLogo : '/cypresslogo.svg'}
+                alt={''}
                 width={26}
                 height={26}
-                objectFit="cover"
+                objectFit={'cover'}
             />
             <div className="flex flex-col">
                 <p

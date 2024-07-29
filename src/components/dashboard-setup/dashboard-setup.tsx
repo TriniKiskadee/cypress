@@ -173,8 +173,7 @@ const DashboardSetup = ({user, subscription}: DashboardSetupProps) => {
                                 accept={'image/*'}
                                 placeholder={'Workspace Logo'}
                                 className={''}
-                                //TODO: Uncomment to disable for free plan
-                                /*disabled={isLoading || subscription?.status !== 'active'}*/
+                                disabled={isLoading || subscription?.status !== 'active'}
                                 {...register('logo', {
                                     required: false
                                 })}
