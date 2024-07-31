@@ -5,13 +5,10 @@ import {
     SetStateAction,
     createContext,
     useContext,
-    useEffect,
     useState,
 } from 'react';
-import {useSupabaseUser} from './supabase-user-provider';
-import {getUserSubscriptionStatus} from '../supabase/queries';
 import SubscriptionModal from '@/components/global/subscription-modal';
-/*import {ProductWirhPrice} from '../supabase/supabase.types';*/
+import {ProductWithPrice} from '../supabase/supabase.types';
 
 type SubscriptionModalContextType = {
     open: boolean;
@@ -28,17 +25,16 @@ export const useSubscriptionModal = () => {
     return useContext(SubscriptionModalContext);
 };
 
-export const SubscriptionModalProvider = ({ children/*, products*/, }: {
+export const SubscriptionModalProvider = ({ children, products, }: {
     children: React.ReactNode;
-    /*products: ProductWirhPrice[];*/
+    products: ProductWithPrice[];
 }) => {
     const [open, setOpen] = useState(false);
 
     return (
         <SubscriptionModalContext.Provider value={{open, setOpen}}>
             {children}
-            {/*<SubscriptionModal products={products}/>*/}
-            <SubscriptionModal />
+            <SubscriptionModal products={products}/>
         </SubscriptionModalContext.Provider>
     );
 };

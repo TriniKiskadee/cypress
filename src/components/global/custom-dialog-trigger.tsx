@@ -25,7 +25,7 @@ const CustomDialogTrigger = ({header, content, children, description, className}
             >
                 {children}
             </DialogTrigger>
-            <DialogContent className={'h-screen block sm:h-[440px] overflow-scroll w-full'}>
+            <DialogContent className={'h-screen block sm:h-[440px] overflow-scroll w-full no-scrollbar'}>
                 <DialogHeader>
                     <DialogTitle>
                         {header}

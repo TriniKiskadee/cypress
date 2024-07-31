@@ -14,7 +14,7 @@ import {Button} from '../ui/button';
 import Loader from '@/components/global/loader';
 import {Price, ProductWithPrice} from '@/lib/supabase/supabase.types';
 import {useToast} from '../ui/use-toast';
-/*import {getStripe} from '@/lib/stripe/stripeClient';*/
+import {getStripe} from "@/lib/stripe/stripe-client";
 
 interface SubscriptionModalProps {
     products: ProductWithPrice[];
@@ -46,8 +46,8 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({products}) => {
             });
 
             console.log('Getting Checkout for stripe');
-            /*const stripe = await getStripe();
-            stripe?.redirectToCheckout({sessionId});*/
+            const stripe = await getStripe();
+            stripe?.redirectToCheckout({sessionId});
         } catch (error) {
             toast({title: 'Oppse! Something went wrong.', variant: 'destructive'});
         } finally {
@@ -70,20 +70,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({products}) => {
                     <DialogDescription>
                         To access Pro features you need to have a paid plan.
                     </DialogDescription>
-                    <div className={'flex justify-between items-center'}>
-                        <b className={'text-3xl text-foreground'}>
-                            $24.99/
-                            <small>
-                                month
-                            </small>
-                        </b>
-                        <Button
-                            disabled={isLoading}
-                        >
-                            {isLoading ? <Loader/> : 'Upgrade ✨'}
-                        </Button>
-                    </div>
-                    {/*{products.length
+                    {products.length
                         ? products.map((product) => (
                             <div
                                 className={'flex justify-between items-center'}
@@ -106,7 +93,7 @@ const SubscriptionModal: React.FC<SubscriptionModalProps> = ({products}) => {
                         )) : (
                             ''
                         )
-                    }*/}
+                    }
                     {/* No Products Available */}
                 </DialogContent>
             )}
