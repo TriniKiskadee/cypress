@@ -1,15 +1,17 @@
 import React from 'react';
 import Sidebar from '@/components/sidebar/sidebar';
 import MobileSidebar from "@/components/sidebar/mobile-sidebar";
+import type {Metadata} from "next";
 
 interface LayoutProps {
     children: React.ReactNode;
     params: any
 }
 
+
 const WorkspaceLayout = ({children, params}: LayoutProps) => {
     return (
-        <main className={'flex overflow-hidden h-screen w-screen'}>
+        <main className={'flex overflow-hidden h-screen w-screen no-scrollbar'}>
             <Sidebar params={params} />
 
             <MobileSidebar>

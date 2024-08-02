@@ -1,19 +1,30 @@
 import type {Metadata} from "next";
-import "./globals.css";
-import {ThemeProvider} from "@/lib/providers/next-theme-provider";
 import {DM_Sans} from 'next/font/google'
 import {twMerge} from "tailwind-merge";
+import {ThemeProvider} from "@/lib/providers/next-theme-provider";
 import {Toaster} from "@/components/ui/toaster";
 import AppStateProvider from "@/lib/providers/state-provider";
 import {SupabaseUserProvider} from "@/lib/providers/supabase-user-provider";
 import {SocketProvider} from "@/lib/providers/socket-provider";
+import "@/app/globals.css";
 
 const inter = DM_Sans({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-    title: "Cypress",
-    description: "All-In-One Collaboration and Productivity Platform\n" +
-        "Application Banner",
+    title: {
+        default: 'Cypress',
+        template: '%s | Cypress',
+    },
+    description: 'All-In-One Collaboration and Productivity Platform',
+    openGraph: {
+        title: 'Cypress',
+        description: 'All-In-One Collaboration and Productivity Platform',
+        type: 'website',
+        locale: 'en_US',
+        //url: '',
+        siteName: 'Cypress',
+        images: 'public/BannerImage.png',
+    },
 };
 
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {

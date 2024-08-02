@@ -38,7 +38,7 @@ const SignUpFormSchema = z
             .min(6, 'Password must be minimum 6 characters'),
     })
     .refine((data) => data.password === data.confirmPassword, {
-        message: "Passwords don't match.",
+        message: 'Passwords don\'t match.',
         path: ['confirmPassword'],
     });
 
@@ -87,36 +87,24 @@ const Signup = () => {
                     if (submitError) setSubmitError('');
                 }}
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full sm:justify-center sm:w-[400px]
-        space-y-6 flex
-        flex-col
-        "
-            >
+                className={'w-full sm:justify-center sm:w-[400px] space-y-6 flex flex-col'}>
                 <Link
-                    href="/"
-                    className="
-          w-full
-          flex
-          justify-left
-          items-center"
-                >
+                    href={'/'}
+                    className={'w-full flex justify-left items-center'}>
                     <Image
                         src={Logo}
-                        alt="cypress Logo"
+                        alt={'cypress Logo'}
                         width={50}
                         height={50}
                     />
                     <span
-                        className="font-semibold
-          dark:text-white text-4xl first-letter:ml-2"
+                        className={'font-semibold dark:text-white text-4xl first-letter:ml-2'}
                     >
             cypress.
           </span>
                 </Link>
                 <FormDescription
-                    className="
-        text-foreground/60"
-                >
+                    className={'text-foreground/60'}>
                     An all-In-One Collaboration and Productivity Platform
                 </FormDescription>
                 {!confirmation && !codeExchangeError && (
@@ -134,7 +122,7 @@ const Signup = () => {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
                             )}
                         />

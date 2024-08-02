@@ -136,7 +136,7 @@ const SettingsForm = () => {
         const uuid = v4();
         setUploadingLogo(true);
         const {data, error} = await supabase.storage
-            .from('workspace-logos')
+            .from('workspace-logo')
             .upload(`workspaceLogo.${uuid}`, file, {
                 cacheControl: '3600',
                 upsert: true,

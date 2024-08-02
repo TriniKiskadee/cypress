@@ -17,7 +17,7 @@ const SelectedWorkspace: React.FC<SelectedWorkspaceProps> = ({workspace, onClick
     useEffect(() => {
         if (workspace.logo) {
             const path = supabase.storage
-                .from('workspace-logos')
+                .from('workspace-logo')
                 .getPublicUrl(workspace.logo)?.data.publicUrl;
             setWorkspaceLogo(path);
         }

@@ -491,7 +491,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                 const response = await findUser(user.id);
                 if (!response) return;
 
-                room.track({
+                await room.track({
                     id: user.id,
                     email: user.email?.split('@')[0],
                     avatarUrl: response.avatarUrl

@@ -167,5 +167,3 @@ export const manageSubscriptionStatusChange = async (subscriptionId: string, cus
         throw new Error(`Could not manage subscription status change ${error}`)
     }
 }
-
-/*TODO: 10:40:32*/
