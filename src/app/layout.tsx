@@ -25,8 +25,9 @@ export const metadata: Metadata = {
         locale: 'en_US',
         //url: '',
         siteName: 'Cypress',
-        images: 'public/BannerImage.png',
+        images: '/Hero.png',
     },
+    metadataBase: new URL('https://localhost:3000/')
 };
 
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
