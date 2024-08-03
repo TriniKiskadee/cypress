@@ -8,6 +8,8 @@ import {SupabaseUserProvider} from "@/lib/providers/supabase-user-provider";
 import {SocketProvider} from "@/lib/providers/socket-provider";
 import "@/app/globals.css";
 
+export const dynamic = 'force-dynamic'
+
 const inter = DM_Sans({subsets: ["latin"]});
 
 export const metadata: Metadata = {

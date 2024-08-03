@@ -115,7 +115,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             inTrash: dirDetails.inTrash,
             bannerUrl: dirDetails.bannerUrl,
         } as workspace | Folder | File;
-    }, [state, workspaceId, folderId]);
+    }, [state, workspaceId, folderId, dirDetails, dirType, fileId]);
 
     const breadCrumbs = useMemo(() => {
         if (!pathname || !state.workspaces || !workspaceId) return;
@@ -351,7 +351,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             }
         };
         fetchInformation();
-    }, [fileId, workspaceId, quill, dirType]);
+    }, [fileId, workspaceId, quill, dirType, dispatch, router]);
 
     useEffect(() => {
         if (quill === null || socket === null || !fileId || !localCursors.length)
@@ -445,7 +445,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             quill.off('selection-change', selectionChangeHandler);
             if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
         };
-    }, [quill, socket, fileId, user, details, folderId, workspaceId, dispatch]);
+    }, [quill, socket, fileId, user, details, folderId, workspaceId, dispatch, dirType]);
 
     useEffect(() => {
         if (quill === null || socket === null) return;

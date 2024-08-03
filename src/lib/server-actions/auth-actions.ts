@@ -11,7 +11,7 @@ export async function actionLoginUser({email, password,}: z.infer<typeof FormSch
         email,
         password,
     });
-    return JSON.stringify(response);
+    return response;
 }
 
 export async function actionSignUpUser({email, password,}: z.infer<typeof FormSchema>) {

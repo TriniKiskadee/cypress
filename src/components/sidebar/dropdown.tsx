@@ -258,7 +258,7 @@ const Dropdown: React.FC<DropdownProps> = ({title, id, listType, iconId, childre
                     'group-hover/folder:block': listType === 'folder',
                 }
             ),
-        [isFolder]
+        [listType]
     );
 
     const addNewFile = async () => {

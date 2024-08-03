@@ -24,7 +24,7 @@ const EmojiPicker = ({children, getValue}: EmojiPickerProps) => {
     const [isMounted, setIsMounted] = useState(false)
     useEffect(() => {
         setIsMounted(true)
-    })
+    }, [])
     if (!isMounted) return null
 
     return (

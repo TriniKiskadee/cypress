@@ -24,7 +24,7 @@ const useSupabaseRealtime = () => {
             },
             async (payload) => {
                 if (payload.eventType === 'INSERT') {
-                    console.log('RECEIVED REALTIME EVENT')
+                    console.log('🟢 RECEIVED REALTIME EVENT')
                     const {
                         folder_id: folderId,
                         workspace_id: workspaceId,
@@ -114,7 +114,7 @@ const useSupabaseRealtime = () => {
         return () => {
             channel.unsubscribe()
         }
-    }, [supabase, state, selectedWorkspace]);
+    }, [supabase, state, selectedWorkspace, dispatch, router]);
 
     // folders
     useEffect(() => {
@@ -126,7 +126,7 @@ const useSupabaseRealtime = () => {
                 table: 'folders'
             }, async (payload) => {
                 if (payload.eventType === 'INSERT') {
-                    console.log('RECEIVED REALTIME EVENT')
+                    console.log('🟢 RECEIVED REALTIME EVENT')
                     const {
                         folder_id: folderId,
                         workspace_id: workspaceId,
@@ -206,7 +206,7 @@ const useSupabaseRealtime = () => {
         return () => {
             channel.unsubscribe()
         }
-    }, [supabase, state, selectedWorkspace]);
+    }, [supabase, state, selectedWorkspace, dispatch, router]);
 
     /*
     // workspaces
